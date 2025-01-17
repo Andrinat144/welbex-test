@@ -1,20 +1,13 @@
 import './App.css';
 
-import viteLogo from '/vite.svg';
 import { useState } from 'react';
 
+import viteLogo from '/vite.svg';
 
 import reactLogo from './assets/react.svg';
 
 const App = () => {
   const [count, setCount] = useState(0);
-
-
-
-
-
-
-  
 
   return (
     <>

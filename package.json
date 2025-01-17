@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
-    "format-check": "prettier --config .prettierrc.json \"{frontend,backend}/**/*.{ts,tsx,js}\" --check && eslint \"{frontend,backend}/**/*.{ts,tsx,js}\" --ext ts,tsx --report-unused-disable-directives --max-warnings 0"
+    "format-check": "prettier --config .prettierrc.json \"{frontend,backend}/***/**/*.{ts,tsx,js}\" --check && eslint \"{frontend,backend}/***/**/*.{ts,tsx,js}\" --ext ts,tsx --report-unused-disable-directives --max-warnings 0"
   },
   "keywords": [],
   "author": "",

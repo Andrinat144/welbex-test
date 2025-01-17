@@ -6,12 +6,12 @@ dotenv.config();
 
 const options: DataSourceOptions & SeederOptions = {
   type: 'postgres',
-  host: process.env.POSTGRES_HOST || 'localhost',
-  port: Number(process.env.POSTGRES_PORT) || 5432,
-  username: process.env.POSTGRES_USER || 'postgres',
-  password: process.env.POSTGRES_PASSWORD || 'postgres',
-  database: process.env.POSTGRES_DB || 'postgres',
-  schema: process.env.POSTGRES_SCHEME_NAME || 'public',
+  host: 'localhost',
+  port: 5432,
+  username: 'postgres',
+  password: 'Nurik123',
+  database: 'exam',
+  schema: 'webxl',
   synchronize: true,
   logging: true,
   entities: ['src/entities/*{.js,.ts}'],

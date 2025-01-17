@@ -15,7 +15,7 @@ export class UserRoute implements Route {
   }
   private init() {
     this.router.post('/sign-in', this.controller.signIn);
-    this.router.post('/sign-up', checkUser, this.controller.signUp);
+    this.router.post('/sign-up', this.controller.signUp);
     this.router.delete('/sign-out', checkUser, this.controller.signOut);
     this.router.post('/refresh', this.controller.refreshToken);
   }

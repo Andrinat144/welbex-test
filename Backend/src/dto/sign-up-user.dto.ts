@@ -13,11 +13,6 @@ export class SignUpUserDto {
   surname!: string;
 
   @Expose()
-  @IsString({ message: 'Позиция пользователя должна быть строкой' })
-  @IsNotEmpty({ message: 'Укажите позицию пользователя' })
-  position!: string;
-
-  @Expose()
   @IsEmail({}, { message: 'Укажите корректный e-mail' })
   @IsString({ message: 'E-mail должен быть строкой' })
   @IsNotEmpty({ message: 'Укажите e-mail' })

@@ -12,6 +12,8 @@ export class UserController {
   private service: UserService;
   constructor() {
     this.service = new UserService();
+    this.signIn = this.signIn.bind(this);
+    this.signUp = this.signUp.bind(this);
   }
 
   @ValidateDto(SignUpUserDto)

@@ -1,9 +1,11 @@
 import cookieParser from 'cookie-parser';
 import cors from 'cors';
 
-import App from './app';
-import logger from './src//middlewares/logger';
-import config from './src/config';
+import App from '@/app';
+import { UserRoute } from '@/routes/user.route';
+
+import config from './config';
+import logger from './middlewares/logger';
 
 const app = new App({
   port: config.PORT,

@@ -4,7 +4,7 @@
   "main": "index.js",
   "scripts": {
     "prepare": "husky install",
-    "format-check": "prettier --config .prettierrc.json \"src/**/*.{ts,tsx,js}\" --check && eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0"
+    "format-check": "prettier --config .prettierrc.json \"{Frontend,Backend}/**/*.{ts,tsx,js}\" --check && eslint \"{Frontend,Backend}/**/*.{ts,tsx,js}\" --ext ts,tsx --report-unused-disable-directives --max-warnings 0"
   },
   "keywords": [],
   "author": "",

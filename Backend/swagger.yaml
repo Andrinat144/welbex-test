@@ -1,0 +1,70 @@
+openapi: 3.0.0
+info:
+  title: API Documentation
+  version: 1.0.0
+paths:
+  /auth/sign-in:
+    post:
+      summary: Sign in a user
+      operationId: signIn
+      security:
+        - apiKeyAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                email:
+                  type: string
+                password:
+                  type: string
+      responses:
+        '200':
+          description: User signed in
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+        '401':
+          description: Invalid credentials
+  /auth/sign-out:
+    delete:
+      summary: Sign out a user
+      operationId: signOut
+      security:
+        - apiKeyAuth: []
+      responses:
+        '200':
+          description: User signed out
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+      parameters:
+        - name: Authorization
+          in: header
+          required: true
+          description: "JWT token for authorization"
+          schema:
+            type: string
+components:
+  securitySchemes:
+    apiKeyAuth:
+      type: apiKey
+      in: header
+      name: Authorization
+  schemas:
+    User:
+      type: object
+      properties:
+        id:
+          type: integer
+        email:
+          type: string
+        role:
+          type: string

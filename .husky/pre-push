@@ -1,0 +1,11 @@
+#!/bin/sh
+. "$(dirname "$0")/_/husky.sh"
+
+npm run format-check
+FORMAT_EXIT_CODE=$?
+echo "Format exit code: $FORMAT_EXIT_CODE"
+
+if [ $FORMAT_EXIT_CODE -ne 0 ]; then
+  echo "Push failed due to formatting or linting errors."
+  exit 1
+fi

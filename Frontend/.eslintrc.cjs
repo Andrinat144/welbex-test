@@ -1,0 +1,37 @@
+module.exports = {
+  root: true,
+  env: { browser: true, es2020: true },
+  extends: [
+    'eslint:recommended',
+    'plugin:@typescript-eslint/recommended',
+    'plugin:react-hooks/recommended',
+    'plugin:prettier/recommended',
+    'eslint-config-prettier',
+  ],
+  ignorePatterns: ['dist', '.eslintrc.cjs'],
+  parser: '@typescript-eslint/parser',
+  plugins: ["simple-import-sort"],
+  rules: {
+    "react/no-unescaped-entities": 0,
+    "jsx-quotes": [1, "prefer-double"],
+    "object-curly-spacing": ["warn", "always"],
+    "func-style": ["error", "expression", { allowArrowFunctions: true }],
+    "prefer-promise-reject-errors": ["error"],
+    "array-bracket-spacing": ["error", "never"],
+    "arrow-spacing": "warn",
+    "block-spacing": "warn",
+    "no-restricted-imports": [
+      "error",
+      {
+        patterns: ["*.ts", "*.tsx"],
+      },
+    ],
+    "linebreak-style": 0,
+    "no-unused-vars": "off",
+    "simple-import-sort/imports": "warn",
+    "react-hooks/rules-of-hooks": "error",
+    "react-hooks/exhaustive-deps": "warn",
+    "offset-ternary-expressions": 0,
+    'prettier/prettier': 'error', 
+  },
+};

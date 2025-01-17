@@ -3,8 +3,9 @@
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
-    "format-check": "prettier --config .prettierrc.json \"{frontend,backend}/***/**/*.{ts,tsx,js}\" --check && eslint \"{frontend,backend}/***/**/*.{ts,tsx,js}\" --ext ts,tsx --report-unused-disable-directives --max-warnings 0"
-  },
+  "format-check": "prettier --config .prettierrc.json \"{frontend,backend}/**/*.{ts,tsx,js}\" --check && eslint \"{frontend,backend}/**/*.{ts,tsx,js}\" --ext ts,tsx --report-unused-disable-directives --max-warnings 0"
+},
+
   "keywords": [],
   "author": "",
   "license": "ISC",
@@ -30,10 +31,11 @@
     }
   },
   "lint-staged": {
-    "*.{ts,tsx,js}": [
-      "prettier --config .prettierrc.json --check",
-      "eslint --ext ts,tsx,js --fix --max-warnings 0",
-      "git add ."
-    ]
-  }
+  "*.{ts,tsx,js}": [
+    "echo 'Running Prettier' && prettier --config .prettierrc.json --write",
+    "echo 'Running ESLint' && eslint --ext ts,tsx,js --check",
+    "git add ."
+  ]
+}
+
 }

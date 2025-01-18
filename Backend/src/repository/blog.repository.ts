@@ -1,3 +1,4 @@
+import { plainToClass } from 'class-transformer';
 import { Repository } from 'typeorm';
 
 import { AppDataSource } from '@/config/appDataSource';
@@ -10,21 +11,31 @@ export class BlogRepository extends Repository<Blog> {
     super(Blog, AppDataSource.createEntityManager());
   }
 
+  async getAll() {
+    const blogs = await this.find({ relations: { user: true } });
+
+    const result = blogs.map((blog) => ({
+      ...blog,
+      user: plainToClass(User, blog.user),
+    }));
+
+    return result;
+  }
+
   async addNewBlog(body: BlogDto) {
     const userRepository = AppDataSource.getRepository(User);
     const user = await userRepository.findOne({ where: { id: body.userId } });
     if (!user) {
       throw new Error('Пользователь не найден');
     }
+    const userWithoutSensitiveData = plainToClass(User, user);
 
     const blog = new Blog();
-    blog.user = user;
+    blog.user = userWithoutSensitiveData;
     blog.date = body.date;
     if (body.text) blog.text = body.text;
     if (body.media) blog.media = body.media;
     const saveBlog = await this.save(blog);
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    const { user: _, ...response } = saveBlog;
-    return response;
+    return saveBlog;
   }
 }

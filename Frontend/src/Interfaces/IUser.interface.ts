@@ -6,3 +6,5 @@ export interface IUser {
   accessToken: string;
   refreshToken: string;
 }
+
+export type IUserWithoutTokens = Omit<IUser, 'accessToken' | 'refreshToken'>;

@@ -1,4 +1,5 @@
 import bcrypt from 'bcryptjs';
+import { Exclude } from 'class-transformer';
 import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
 
 import { Blog } from '@/entities/blog.entity';
@@ -18,9 +19,11 @@ export class User {
   email!: string;
 
   @Column()
+  @Exclude()
   password!: string;
 
   @Column({ nullable: true })
+  @Exclude()
   refreshToken?: string;
 
   @OneToMany(() => Blog, (blog) => blog.user)

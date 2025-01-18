@@ -12,6 +12,11 @@ export class BlogController {
     this.service = new BlogService();
   }
 
+  getAll: RequestHandler = async (req, res): Promise<void> => {
+    const blogs = await this.service.getAll();
+    res.send(blogs);
+  };
+
   addNewBlog: RequestHandler = async (req: RequestWithUser, res) => {
     try {
       const userId = req.user?.id;

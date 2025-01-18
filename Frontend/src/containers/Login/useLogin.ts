@@ -42,15 +42,15 @@ export const useLogin = () => {
   };
 
   const validationSchema = Yup.object({
-    email: Yup.string().email('validation.emailInvalid').required('validation.emailRequired'),
-    password: Yup.string().required('validation.passwordRequired'),
+    email: Yup.string().email('Пожалуйста, укажите корректный email').required('Требуется указать email'),
+    password: Yup.string().required('Пожалуйста, укажите пароль'),
   });
 
   const signUpValidationSchema = Yup.object({
-    email: Yup.string().email('validation.emailInvalid').required('validation.emailRequired'),
-    password: Yup.string().required('validation.passwordRequired'),
-    name: Yup.string().required('validation.passwordRequired'),
-    surname: Yup.string().required('validation.passwordRequired'),
+    email: Yup.string().email('Пожалуйста, укажите корректный email').required('Требуется указать email'),
+    password: Yup.string().required('Пожалуйста, укажите пароль'),
+    name: Yup.string().required('Пожалуйста, укажите имя'),
+    surname: Yup.string().required('Пожалуйста, укажите фамилию'),
   });
 
   const handleChangeTab = (_: React.SyntheticEvent, newValue: number) => {

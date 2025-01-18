@@ -1,6 +1,6 @@
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import { LoadingButton } from '@mui/lab';
-import { Alert, Avatar, Box, Container, Tab, Tabs, TextField, Typography } from '@mui/material';
+import { Alert, Avatar, Box, Container, Tab, Tabs, TextField } from '@mui/material';
 import blue from '@mui/material/colors/blue';
 import { Form, Formik } from 'formik';
 
@@ -64,15 +64,11 @@ const Login = () => {
               },
             }}
           >
-            <Tab sx={{ width: '198px' }} label={'createBatch.varnish'} {...a11yProps(0)} />
-            <Tab sx={{ width: '198px' }} label={'thinner'} {...a11yProps(1)} />
+            <Tab sx={{ width: '198px' }} label={'Вход'} {...a11yProps(0)} />
+            <Tab sx={{ width: '198px' }} label={'Регистрация'} {...a11yProps(1)} />
           </Tabs>
         </Box>
         <CustomTabPanel value={tabValue} index={0}>
-          <Typography component="h1" variant="h5">
-            Вход
-          </Typography>
-
           <Formik
             initialValues={initialValues}
             validationSchema={validationSchema}
@@ -94,7 +90,7 @@ const Login = () => {
                   name="email"
                   margin="normal"
                   fullWidth
-                  label="login.email"
+                  label="Email"
                   onChange={handleChange}
                   onBlur={handleBlur}
                   value={values.email}
@@ -107,7 +103,7 @@ const Login = () => {
                   name="password"
                   margin="normal"
                   fullWidth
-                  label="login.password"
+                  label="Пароль"
                   type="password"
                   onChange={handleChange}
                   onBlur={handleBlur}
@@ -134,10 +130,6 @@ const Login = () => {
           </Formik>
         </CustomTabPanel>
         <CustomTabPanel value={tabValue} index={1}>
-          <Typography component="h1" variant="h5">
-            Регистрация
-          </Typography>
-
           <Formik
             initialValues={signUpInitialValues}
             validationSchema={signUpValidationSchema}
@@ -159,7 +151,7 @@ const Login = () => {
                   name="email"
                   margin="normal"
                   fullWidth
-                  label="login.email"
+                  label="Еmail"
                   onChange={handleChange}
                   onBlur={handleBlur}
                   value={values.email}
@@ -172,7 +164,7 @@ const Login = () => {
                   name="password"
                   margin="normal"
                   fullWidth
-                  label="login.password"
+                  label="Пароль"
                   type="password"
                   onChange={handleChange}
                   onBlur={handleBlur}
@@ -186,7 +178,7 @@ const Login = () => {
                   name="name"
                   margin="normal"
                   fullWidth
-                  label="login.password"
+                  label="Имя"
                   onChange={handleChange}
                   onBlur={handleBlur}
                   value={values.name}
@@ -199,7 +191,7 @@ const Login = () => {
                   name="surname"
                   margin="normal"
                   fullWidth
-                  label="login.password"
+                  label="Фамилия"
                   onChange={handleChange}
                   onBlur={handleBlur}
                   value={values.surname}

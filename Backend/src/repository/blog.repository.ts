@@ -22,16 +22,27 @@ export class BlogRepository extends Repository<Blog> {
     return result;
   }
 
+  async deleteBlog(id: number, userId: number) {
+    const blog = await this.findOne({ where: { id: id }, relations: ['user'] });
+    if (!blog) {
+      throw new Error('Блог не найден');
+    }
+    if (blog.user.id !== userId) {
+      throw new Error('Это не ваш Блог');
+    }
+    await this.delete(id);
+    return blog;
+  }
+
   async addNewBlog(body: BlogDto) {
     const userRepository = AppDataSource.getRepository(User);
+
     const user = await userRepository.findOne({ where: { id: body.userId } });
     if (!user) {
       throw new Error('Пользователь не найден');
     }
-    const userWithoutSensitiveData = plainToClass(User, user);
-
     const blog = new Blog();
-    blog.user = userWithoutSensitiveData;
+    blog.user = user;
     blog.date = body.date;
     if (body.text) blog.text = body.text;
     if (body.media) blog.media = body.media;

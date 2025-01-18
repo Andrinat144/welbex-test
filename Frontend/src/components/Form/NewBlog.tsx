@@ -8,7 +8,7 @@ export const NewBlog = () => {
   const { initialValues, validationSchema, handleSubmit } = useNewBlog();
 
   return (
-    <Stack direction="row" spacing={2} gap={30}>
+    <Stack direction="row" spacing={2} gap={30} justifyContent={'center'}>
       <Formik
         initialValues={initialValues}
         validationSchema={validationSchema}

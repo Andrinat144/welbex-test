@@ -31,6 +31,22 @@ export const getAllBlogs = createAsyncThunk<IBlog[], void, { rejectValue: ErrorR
   }
 );
 
+export const deleteBlog = createAsyncThunk<IBlog, number, { rejectValue: ErrorResponse }>(
+  'blog/deleteBlog',
+  async (blogId, { rejectWithValue }) => {
+    try {
+      const response = await axiosApiClient.delete<IBlog>(`/blog/delete/${blogId}`);
+      return response.data;
+    } catch (error) {
+      if (isAxiosError<ErrorResponse>(error)) {
+        console.log(error.response?.data);
+        return rejectWithValue(error.response?.data || { error: { message: 'Some error in response server' } });
+      }
+      throw error;
+    }
+  }
+);
+
 export const addBlog = createAsyncThunk<IBlog, InitialsValuesBlog, { rejectValue: ErrorResponse }>(
   'blog/addBlog',
   async (materialData: InitialsValuesBlog, { rejectWithValue }) => {

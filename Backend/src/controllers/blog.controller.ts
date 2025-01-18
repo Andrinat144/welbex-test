@@ -17,6 +17,15 @@ export class BlogController {
     res.send(blogs);
   };
 
+  deleteBlog: RequestHandler = async (req: RequestWithUser, res): Promise<void> => {
+    const id = parseInt(req.params.id);
+    const userId = req.user!.id;
+    if (!isNaN(id)) {
+      const blog = await this.service.deleteBlog(id, userId);
+      res.send(blog);
+    }
+  };
+
   addNewBlog: RequestHandler = async (req: RequestWithUser, res) => {
     try {
       const userId = req.user?.id;
@@ -24,7 +33,7 @@ export class BlogController {
         res.status(401).send({ error: { message: 'Пользователь не авторизован' } });
         return;
       }
-      const blogDto = plainToInstance(BlogDto, { ...req.body, date: new Date(), userID: userId });
+      const blogDto = plainToInstance(BlogDto, { ...req.body, date: new Date(), userId: userId });
       const errors = await validate(blogDto);
       if (errors.length > 0) {
         res.status(400).send({ error: errors.map((err) => err.constraints) });

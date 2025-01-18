@@ -13,6 +13,10 @@ export class BlogService {
     return await this.repository.getAll();
   };
 
+  deleteBlog = async (id: number, userId: number): Promise<Blog> => {
+    return await this.repository.deleteBlog(id, userId);
+  };
+
   addNewBlog = async (blogDto: BlogDto): Promise<IBlog> => {
     return await this.repository.addNewBlog(blogDto);
   };

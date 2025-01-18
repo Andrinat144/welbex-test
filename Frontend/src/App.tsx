@@ -14,7 +14,7 @@ const App = () => {
         <AppToolbar />
       </header>
       <main>
-        <Container maxWidth="xl">
+        <Container maxWidth="lg">
           <Routes>
             <Route path="/" element={<HomePage />} />
             <Route path="/login" element={<Login />} />

@@ -2,6 +2,7 @@ import cookieParser from 'cookie-parser';
 import cors from 'cors';
 
 import App from '@/app';
+import { BlogRoute } from '@/routes/blog.route';
 import { UserRoute } from '@/routes/user.route';
 
 import config from './config';
@@ -17,7 +18,7 @@ const app = new App({
     }),
     cookieParser(),
   ],
-  routes: [new UserRoute()],
+  routes: [new UserRoute(), new BlogRoute()],
 });
 
 app.listen();

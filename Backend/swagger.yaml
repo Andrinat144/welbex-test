@@ -29,6 +29,36 @@ paths:
                 $ref: '#/components/schemas/User'
         '401':
           description: Invalid credentials
+  /auth/sign-up:
+    post:
+      summary: Sign up a user
+      operationId: signUp
+      security:
+        - apiKeyAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                email:
+                  type: string
+                password:
+                  type: string
+                name: 
+                  type: string
+                surname:
+                  type: string
+      responses:
+        '200':
+          description: User signed in
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+        '401':
+          description: Invalid credentials
   /auth/sign-out:
     delete:
       summary: Sign out a user
@@ -52,19 +82,4 @@ paths:
           description: "JWT token for authorization"
           schema:
             type: string
-components:
-  securitySchemes:
-    apiKeyAuth:
-      type: apiKey
-      in: header
-      name: Authorization
-  schemas:
-    User:
-      type: object
-      properties:
-        id:
-          type: integer
-        email:
-          type: string
-        role:
-          type: string
+

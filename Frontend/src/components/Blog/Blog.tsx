@@ -30,7 +30,7 @@ const Blog = memo(({ item, onClickDelete, isEdit, onClickEdit, onClickCansel }: 
       {item.media && <MediaDisplay url={item.media} />}
       {userInfo && userInfo.id === item.user.id && (
         <Stack direction={'row'} justifyContent={'flex-end'} gap={2}>
-          <CustomButton onClick={isEdit ? () => onClickCansel() : onClickEdit}>
+          <CustomButton theme="secondary" onClick={isEdit ? () => onClickCansel() : onClickEdit}>
             {isEdit ? 'Отмена' : 'Редактировать'}
           </CustomButton>
           <CustomButton theme="error" onClick={() => onClickDelete(item.id)} sx={{ marginLeft: '0px' }}>

@@ -142,7 +142,6 @@ export const blogSlice = createSlice({
       })
       .addCase(addBlog.fulfilled, (state, action) => {
         state.blogLoading = false;
-        console.log(action.payload);
         if (state.allBlogs) {
           state.allBlogs = [...state.allBlogs, action.payload];
         } else {
@@ -158,7 +157,6 @@ export const blogSlice = createSlice({
       })
       .addCase(patchBlog.fulfilled, (state, action) => {
         state.blogLoading = false;
-        console.log(action.payload);
         if (state.allBlogs) {
           state.allBlogs = state.allBlogs.map((item) => (item.id === action.payload.id ? action.payload : item));
         } else {

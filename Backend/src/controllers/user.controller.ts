@@ -69,7 +69,6 @@ export class UserController {
 
   refreshToken: RequestHandler = (req, res) => {
     const refreshToken = req.cookies.jwt;
-    console.log(req.cookies);
 
     if (!refreshToken) {
       res.status(401).send({ error: { message: 'Token not exist' } });

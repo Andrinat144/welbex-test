@@ -28,7 +28,7 @@ const HomePage = () => {
             />
           ))}
       </Stack>
-      <NewBlog isEditId={allBlogs && isEditId ? allBlogs[isEditId] : null} onClickCansel={onClickCansel} />
+      <NewBlog isEditId={allBlogs && isEditId !== null ? allBlogs[isEditId] : null} onClickCansel={onClickCansel} />
     </Stack>
   );
 };

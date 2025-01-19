@@ -16,6 +16,7 @@ export class BlogRoute implements Route {
   }
   private init() {
     this.router.post('/add', checkUser, upload.single('media'), this.controller.addNewBlog);
+    this.router.patch('/patch/:id', checkUser, upload.single('media'), this.controller.patchBlog);
     this.router.delete('/delete/:id', checkUser, this.controller.deleteBlog);
     this.router.get('/get', this.controller.getAll);
   }

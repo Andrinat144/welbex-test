@@ -1,7 +1,8 @@
+import { useNavigate } from 'react-router-dom';
 import * as Yup from 'yup';
 
-import { useAppDispatch } from '@/app/hooks';
-import { addBlog } from '@/store/slices/blogSlice';
+import { useAppDispatch, useAppSelector } from '@/app/hooks';
+import { addBlog, IEditBlog, patchBlog } from '@/store/slices/blogSlice';
 
 export interface InitialsValuesBlog {
   text: string;
@@ -10,6 +11,8 @@ export interface InitialsValuesBlog {
 
 export const useNewBlog = () => {
   const dispatch = useAppDispatch();
+  const { userInfo } = useAppSelector((state) => state.users);
+  const navigate = useNavigate();
   const initialValues: InitialsValuesBlog = {
     text: '',
     media: null,
@@ -20,11 +23,21 @@ export const useNewBlog = () => {
   });
 
   const handleSubmit = async (values: InitialsValuesBlog) => {
-    dispatch(addBlog(values));
+    if (userInfo) {
+      dispatch(addBlog(values));
+    } else {
+      navigate({ pathname: '/login' });
+    }
   };
+
+  const handleEdit = async (values: IEditBlog, blogId: number) => {
+    dispatch(patchBlog({ materialData: values, blogId }));
+  };
+
   return {
     initialValues,
     validationSchema,
     handleSubmit,
+    handleEdit,
   };
 };

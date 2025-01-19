@@ -26,6 +26,24 @@ export class BlogController {
     }
   };
 
+  patchBlog: RequestHandler = async (req: RequestWithUser, res): Promise<void> => {
+    try {
+      const id = parseInt(req.params.id);
+      const userId = req.user!.id;
+      if (!isNaN(id)) {
+        if (req.file) req.body.media = req.file.filename;
+        const blog = await this.service.patchBlog(id, userId, req.body);
+        res.send(blog);
+      }
+    } catch (e) {
+      if (e instanceof Error) {
+        res.status(400).send({ error: { message: e.message } });
+        return;
+      }
+      res.status(500).send({ error: { message: 'Oops something went wrong' } });
+    }
+  };
+
   addNewBlog: RequestHandler = async (req: RequestWithUser, res) => {
     try {
       const userId = req.user?.id;

@@ -10,22 +10,29 @@ import { IBlog } from '@/Interfaces/IBlog.interface';
 type TProps = {
   item: IBlog;
   onClickDelete: (id: number) => void;
+  isEdit: boolean;
+  onClickEdit: () => void;
+  onClickCansel: () => void;
 };
 
-const Blog = memo(({ item, onClickDelete }: TProps) => {
+const Blog = memo(({ item, onClickDelete, isEdit, onClickEdit, onClickCansel }: TProps) => {
   const { userInfo } = useAppSelector((state) => state.users);
+
   return (
-    <Stack>
+    <Stack p={1} border={'1px solid black'}>
       <Stack direction={'row'} justifyContent={'space-between'}>
         <Typography>
           {item.user.name} {item.user.surname}
         </Typography>
-        <Typography>{formatDateTimeFunction(item.date)}</Typography>
+        <Typography>Дата: {formatDateTimeFunction(item.date)}</Typography>
       </Stack>
-      <Typography>{item.text ? item.text : ''}</Typography>
+      <Typography variant="h6">{item.text ? item.text : ''}</Typography>
       {item.media && <MediaDisplay url={item.media} />}
       {userInfo && userInfo.id === item.user.id && (
-        <Stack alignItems="flex-end">
+        <Stack direction={'row'} justifyContent={'flex-end'} gap={2}>
+          <CustomButton onClick={isEdit ? () => onClickCansel() : onClickEdit}>
+            {isEdit ? 'Отмена' : 'Редактировать'}
+          </CustomButton>
           <CustomButton theme="error" onClick={() => onClickDelete(item.id)} sx={{ marginLeft: '0px' }}>
             Удалить
           </CustomButton>

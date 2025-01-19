@@ -1,26 +1,37 @@
 import { Stack, TextField, Typography } from '@mui/material';
 import { Form, Formik } from 'formik';
 
-import { useNewBlog } from '@/components/Form/useNewBlog';
+import { InitialsValuesBlog, useNewBlog } from '@/components/Form/useNewBlog';
 import CustomButton from '@/components/UI/Button/CustomButton';
+import { IEditBlog } from '@/store/slices/blogSlice';
 
-export const NewBlog = () => {
-  const { initialValues, validationSchema, handleSubmit } = useNewBlog();
+export const NewBlog = ({ isEditId, onClickCansel }: { isEditId: IEditBlog | null; onClickCansel: () => void }) => {
+  const { initialValues, validationSchema, handleSubmit, handleEdit } = useNewBlog();
+  const currentInitialValues = isEditId
+    ? { ...initialValues, text: isEditId.text, media: isEditId.media }
+    : initialValues;
 
   return (
     <Stack direction="row" spacing={2} gap={30} justifyContent={'center'}>
       <Formik
-        initialValues={initialValues}
+        initialValues={currentInitialValues}
         validationSchema={validationSchema}
-        onSubmit={async (values, { setSubmitting }) => {
+        onSubmit={async (values, { setSubmitting, resetForm }) => {
           setSubmitting(true);
-          await handleSubmit(values);
+          if (isEditId) {
+            await handleEdit(values as IEditBlog, isEditId.id);
+          } else {
+            await handleSubmit(values as InitialsValuesBlog);
+          }
+          resetForm();
+          onClickCansel();
           setSubmitting(false);
         }}
+        enableReinitialize
       >
         {({ values, errors, touched, handleChange, handleBlur, setFieldValue, isSubmitting }) => (
           <Form style={{ display: 'flex', flexDirection: 'column', gap: '16px', width: '500px', marginBottom: '20px' }}>
-            <Typography>{'Новый Блог'}</Typography>
+            <Typography>{isEditId ? 'Редактировать Блог' : 'Новый Блог'}</Typography>
 
             <TextField
               label={'Текст'}

@@ -6,6 +6,8 @@ import { BlogDto } from '@/dto/blog.dto';
 import { Blog } from '@/entities/blog.entity';
 import { User } from '@/entities/user.entity';
 
+const userRepository = AppDataSource.getRepository(User);
+
 export class BlogRepository extends Repository<Blog> {
   constructor() {
     super(Blog, AppDataSource.createEntityManager());
@@ -35,8 +37,6 @@ export class BlogRepository extends Repository<Blog> {
   }
 
   async addNewBlog(body: BlogDto) {
-    const userRepository = AppDataSource.getRepository(User);
-
     const user = await userRepository.findOne({ where: { id: body.userId } });
     if (!user) {
       throw new Error('Пользователь не найден');
@@ -48,5 +48,22 @@ export class BlogRepository extends Repository<Blog> {
     if (body.media) blog.media = body.media;
     const saveBlog = await this.save(blog);
     return saveBlog;
+  }
+
+  async patchBlog(id: number, userId: number, blogDto: BlogDto) {
+    const user = await userRepository.findOne({ where: { id: userId } });
+    if (!user) {
+      throw new Error('Пользователь не найден');
+    }
+
+    const blog = await this.findOne({ where: { id: id } });
+    if (!blog) {
+      throw new Error('Блог не найден');
+    }
+    blog.text = blogDto.text;
+    blog.media = blogDto.media;
+    blog.user = user;
+    const newBlog = await this.save(blog);
+    return newBlog;
   }
 }

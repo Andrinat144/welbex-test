@@ -1,22 +1,11 @@
 import { Stack } from '@mui/material';
-import { useEffect } from 'react';
 
-import { useAppDispatch, useAppSelector } from '@/app/hooks';
 import Blog from '@/components/Blog/Blog';
 import { NewBlog } from '@/components/Form/NewBlog';
-import { deleteBlog, getAllBlogs } from '@/store/slices/blogSlice';
+import { useHomePage } from '@/containers/HomePage/useHomePage';
 
 const HomePage = () => {
-  const dispatch = useAppDispatch();
-  const { allBlogs } = useAppSelector((state) => state.blog);
-
-  useEffect(() => {
-    dispatch(getAllBlogs());
-  }, [dispatch]);
-
-  const onClickDelete = (id: number) => {
-    dispatch(deleteBlog(id));
-  };
+  const { onClickCansel, onClickEdit, onClickDelete, allBlogs, isEditId } = useHomePage();
 
   return (
     <Stack
@@ -27,9 +16,19 @@ const HomePage = () => {
       justifyContent={'space-between'}
     >
       <Stack gap={3}>
-        {allBlogs && allBlogs.map((item) => <Blog key={item.id} item={item} onClickDelete={onClickDelete} />)}
+        {allBlogs &&
+          allBlogs.map((item, index) => (
+            <Blog
+              key={item.id}
+              item={item}
+              onClickDelete={onClickDelete}
+              isEdit={index === isEditId ? true : false}
+              onClickEdit={() => onClickEdit(index)}
+              onClickCansel={onClickCansel}
+            />
+          ))}
       </Stack>
-      <NewBlog />
+      <NewBlog isEditId={allBlogs && isEditId ? allBlogs[isEditId] : null} onClickCansel={onClickCansel} />
     </Stack>
   );
 };

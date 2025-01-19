@@ -20,4 +20,8 @@ export class BlogService {
   addNewBlog = async (blogDto: BlogDto): Promise<IBlog> => {
     return await this.repository.addNewBlog(blogDto);
   };
+
+  patchBlog = async (id: number, userId: number, blogDto: BlogDto): Promise<IBlog> => {
+    return await this.repository.patchBlog(id, userId, blogDto);
+  };
 }

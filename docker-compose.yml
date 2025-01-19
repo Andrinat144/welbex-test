@@ -3,7 +3,8 @@ services:
     build: ./Backend
     ports:
       - '8000:8000'
-
+    volumes:
+      - ./public/uploads:/app/public/uploads
     env_file:
       - .env
     depends_on:
@@ -17,7 +18,8 @@ services:
       context: ./Frontend
     ports:
       - '80:80'
-
+    volumes:
+      - ./public/uploads:/app/public/uploads
     env_file:
       - .env
     environment:

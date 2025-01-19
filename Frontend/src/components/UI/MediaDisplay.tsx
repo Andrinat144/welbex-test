@@ -10,12 +10,12 @@ const MediaDisplay = ({ url }: { url: string }) => {
   return (
     <div>
       {isVideo ? (
-        <video width="600" controls>
+        <video height="200" controls>
           <source src={`${apiURL}/uploads/${url}`} type="video/mp4" />
           Ваш браузер не поддерживает видео.
         </video>
       ) : isImage ? (
-        <img src={`${apiURL}/uploads/${url}`} alt="media" width="600" />
+        <img src={`${apiURL}/uploads/${url}`} alt="media" height="200" />
       ) : (
         <p>Неверный формат медиа.</p>
       )}

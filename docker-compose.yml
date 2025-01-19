@@ -20,7 +20,8 @@ services:
 
     env_file:
       - .env
-
+    environment:
+      VITE_API_URL: http://mycitadel.ddns.net:8000/
     networks:
       - app-network
 
@@ -29,21 +30,23 @@ services:
     env_file:
       - .env
     environment:
-      POSTGRES_PASSWORD: ${DB_PASSWORD}
-      POSTGRES_DB: ${DB_NAME}
-      POSTGRES_USER: ${DB_USER}
-      POSTGRES_SCHEMA: ${DB_SHEMA}
+      POSTGRES_USER: "postgres"
+      POSTGRES_PASSWORD: "Nurik123"
+      POSTGRES_DB: "exam"
+      POSTGRES_SCHEMA: "exam12"
     volumes:
+      - ./init.sql:/docker-entrypoint-initdb.d/init.sql
       - db-data:/var/lib/postgresql/data
     ports:
-      - '${DB_PORT}:${DB_PORT}'
+      - '5432:5432'
     networks:
       - app-network
     healthcheck:
-      test: ['CMD', 'pg_isready', '-U', '${DB_USER}']
+      test: ['CMD', 'pg_isready', '-U', 'postgres']
       interval: 10s
       timeout: 5s
       retries: 3
+      start_period: 10s
 volumes:
   db-data:
 

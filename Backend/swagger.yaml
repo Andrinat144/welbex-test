@@ -75,11 +75,123 @@ paths:
                 properties:
                   message:
                     type: string
+  /blog/get:
+    get:
+      summary: Get all blogs
+      operationId: getAllBlogs
+      security:
+        - apiKeyAuth: []
+      responses:
+        '200':
+          description: All blogs
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Blog'
+  /blog/add:
+    post:
+      summary: Add a new blog
+      operationId: addBlog
+      security:
+        - apiKeyAuth: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                text:
+                  type: string
+                media:
+                  type: string
+      responses:
+        '200':
+          description: The created blog
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Blog'
+        '400':
+          description: Validation errors
+  /blog/delete/{id}:
+    delete:
+      summary: Delete blog
+      operationId: deleteBlog
+      security:
+        - apiKeyAuth: []
       parameters:
-        - name: Authorization
-          in: header
+        - name: id
+          in: path
           required: true
-          description: "JWT token for authorization"
           schema:
-            type: string
-
+            type: integer
+      responses:
+        '200':
+          description: Blog deleted
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Blog'
+        '404':
+          description: Blog not found
+  /blog/patch/{id}:
+    patch:
+      summary: Patch blog
+      operationId: patchBlog
+      security:
+        - apiKeyAuth: []
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                text:
+                  type: string
+                media:
+                  type: string
+      responses:
+        '200':
+          description: Blog patch
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Blog'
+        '404':
+          description: Blog not found
+components:
+  schemas:
+    User:
+      type: object
+      properties:
+        id:
+          type: string
+        email:
+          type: string
+        name:
+          type: string
+        surname:
+          type: string
+    Blog:
+      type: object
+      properties:
+        id:
+          type: integer
+        text:
+          type: string
+        media:
+          type: string
+  securitySchemes:
+    apiKeyAuth:
+      type: apiKey
+      in: header
+      name: Authorization
+      description: "JWT token for authorization"

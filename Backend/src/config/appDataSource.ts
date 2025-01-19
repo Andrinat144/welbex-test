@@ -6,17 +6,15 @@ dotenv.config();
 
 const options: DataSourceOptions & SeederOptions = {
   type: 'postgres',
-  host: 'localhost',
+  host: process.env.DB_HOST || 'localhost',
   port: 5432,
-  username: 'postgres',
-  password: 'Nurik123',
-  database: 'exam',
-  schema: 'webxl',
+  username: 'nursultan',
+  password: 'password1',
+  database: 'postgres',
+  schema: 'public',
   synchronize: true,
   logging: true,
   entities: ['src/entities/*{.js,.ts}'],
-  seeds: ['src/database/seeds/*{.js,.ts}'],
-  factories: ['src/database/factories/*{.js,.ts}'],
 };
 
 export const AppDataSource = new DataSource(options);
